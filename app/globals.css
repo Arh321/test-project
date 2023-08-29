@@ -2,26 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: medium;
+  src: url("../public/fonts/Qs_Iranyekan\ medium.woff") format("woff");
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: bold;
+  src: url("../public/fonts/Qs_Iranyekan\ bold.woff") format("woff");
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@font-face {
+  font-family: light;
+  src: url("../public/fonts/Qs_Iranyekan\ light.woff") format("woff");
+}
+
+@font-face {
+  font-family: thin;
+  src: url("../public/fonts/Qs_Iranyekan\ thin.woff") format("woff");
+}
+
+@font-face {
+  font-family: extrabold;
+  src: url("../public/fonts/Qs_Iranyekan\ extrabold.woff") format("woff");
+}
+
+@font-face {
+  font-family: black_Iranyekan;
+  src: url("../public/fonts/Qs_Iranyekan\ black.woff") format("woff");
 }
