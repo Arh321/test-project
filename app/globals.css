@@ -31,3 +31,31 @@
   font-family: black_Iranyekan;
   src: url("../public/fonts/Qs_Iranyekan\ black.woff") format("woff");
 }
+
+.brand_box {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  overflow-x: scroll !important;
+  overflow-y: hidden;
+  direction: rtl;
+  scroll-behavior: smooth;
+  padding: 12px 0;
+  padding-left: 12px;
+}
+.brand_box::-webkit-scrollbar {
+  background: transparent; /* make scrollbar transparent */
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+}
+
+.brand_box li {
+  width: 400px !important;
+  padding: 28px 0;
+  font-family: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}

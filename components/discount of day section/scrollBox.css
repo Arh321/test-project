@@ -1,0 +1,20 @@
+.box {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+.box::-webkit-scrollbar {
+  background: transparent; /* make scrollbar transparent */
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+}
+
+.box li {
+  width: 60%;
+  object-fit: contain;
+}

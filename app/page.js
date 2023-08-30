@@ -1,20 +1,37 @@
 "use client";
 import BoxInfo from "@/components/box info/BoxInfo";
+import ScrollBox from "@/components/discount of day section/ScrollBox";
 import Header from "@/components/header/Header";
 import Menu from "@/components/menu/Menu";
+import ProductCard from "@/components/product card/ProductCard";
 import SwiperSection from "@/components/swiper/SwiperSction";
 import request from "@/fetch data/requestToApi";
+import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
-
+import "../components/discount of day section/scrollBox.css";
 export default function Home() {
-  const [data, setData] = useState(null);
+  const [productGroups, setProductGroups] = useState(null);
+  const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [brands, setBrands] = useState(null);
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
-      setData(
+      setProductGroups(
         await request(
           "https://newapi.313shops.com/api/Product/GetProductGroups/73",
+          "Get"
+        )
+      );
+      setProducts(
+        await request(
+          `https://newapi.313shops.com/api/Product/GetGroupProducts/73/59`,
+          "Get"
+        )
+      );
+      setBrands(
+        await request(
+          "https://newapi.313shops.com/api/Product/GetProductBrands",
           "Get"
         )
       );
@@ -22,7 +39,7 @@ export default function Home() {
     };
     getData();
   }, []);
-  console.log(data);
+  console.log(products);
   const infos = [
     {
       icon: "https://measomarket.com/view/figma/icon-1.png",
@@ -46,14 +63,15 @@ export default function Home() {
     },
   ];
   return (
-    <div className="px-2" dir="rtl">
+    <div className="px-2 w-full" dir="rtl">
       <Header />
       <Menu />
       <SwiperSection />
       <div className="w-full flex items-center justify-center gap-3 py-10">
-        {infos.map((inf) => {
+        {infos.map((inf, index) => {
           return (
             <BoxInfo
+              key={inf.title + index}
               icon={inf.icon}
               title={inf.title}
               subTitle={inf.subTitle}
@@ -61,8 +79,8 @@ export default function Home() {
           );
         })}
       </div>
-      <div className="w-[80%] mx-auto pt-12 pb-14 bg-main-discount-new flex">
-        <div className="flex flex-col items-center gap-5 pr-10">
+      <div className="w-[80%] mx-auto pt-12 pb-12 bg-main-discount-new flex rounded-lg">
+        <div className="w-1/5 flex flex-col items-center justify-between pr-10">
           <p className="font-bold text-xl text-main-light-gray">
             تخفیف های روز
           </p>
@@ -70,6 +88,53 @@ export default function Home() {
           <img src="https://measomarket.com/view/figma/box1.png" />
           <p className="font-bold text-xl text-main-light-gray">مشاهده همه</p>
         </div>
+        <ScrollBox products={products?.data.result} />
+      </div>
+      <div className="w-[80%] mx-auto flex flex-col py-10">
+        <div className="w-full flex items-center">
+          <hr className="w-2/5 border bg-main-discount-new border-main-discount-new" />
+          <p className="w-1/5 px-2 py-2 drop-shadow-lg shadow-black text-center font-bold text-2xl">
+            دسته بندی محصولات
+          </p>
+          <hr className="w-2/5 border bg-main-discount-new border-main-discount-new" />
+        </div>
+        <div className=" flex flex-wrap justify-between gap-y-4 mt-5">
+          {productGroups &&
+            productGroups.data.result
+              .filter((item) => item.groupName !== " ")
+              .map((group) => {
+                return <ProductCard name={group.groupName} />;
+              })}
+        </div>
+      </div>
+      <div className="w-[80%] mx-auto flex flex-col py-10 ">
+        <div className="w-full flex items-center">
+          <hr className="w-2/5 border bg-main-discount-new border-main-discount-new" />
+          <p className="w-1/5 px-2 py-2 drop-shadow-lg shadow-black text-center font-bold text-2xl">
+            برند‌های محبوب
+          </p>
+          <hr className="w-2/5 border bg-main-discount-new border-main-discount-new" />
+        </div>
+        <div className="w-full flex justify-end">
+          <button>
+            <p className="drop-shadow-lg shadow-black text-center font-bold flex items-center gap-1">
+              مشاهده همه{" "}
+              <span className="text-main-discount-new text-xl">{">"}</span>{" "}
+            </p>
+          </button>
+        </div>
+        <ul className="brand_box">
+          {brands &&
+            brands.data.result.map((brand) => {
+              return (
+                <li className="flex items-center shadow-info justify-center font-bold text-2xl">
+                  <p className="w-[200px] text-center py-8">
+                    {brand.brandTitle}
+                  </p>
+                </li>
+              );
+            })}
+        </ul>
       </div>
     </div>
   );
