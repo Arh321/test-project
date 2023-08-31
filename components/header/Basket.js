@@ -1,10 +1,10 @@
 "use client";
 
+import toFarsiNumber from "@/hooks/toPersion";
 import { useSelector } from "react-redux";
 
 const Basket = ({ triggerModule }) => {
   const { basket, amount } = useSelector((state) => state.basket);
-  console.log(basket);
   return (
     <div
       onClick={() => triggerModule()}
@@ -14,8 +14,8 @@ const Basket = ({ triggerModule }) => {
       <p className="font-medium text-[0.7rem] flex gap-2 items-center pr-7">
         سبد خرید
       </p>
-      <div className="w-5 h-5 rounded-full bg-gray-400 flex items-center justify-center font-bold text-[0.7rem]">
-        {amount}
+      <div className="w-5 h-5 rounded-full bg-teal-400 flex items-center justify-center text-white font-bold text-[0.8rem]">
+        {toFarsiNumber(amount)}
       </div>
     </div>
   );

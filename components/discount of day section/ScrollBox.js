@@ -11,11 +11,10 @@ const ScrollBox = ({ products }) => {
     return (
       <div className="w-4/5 px-2">
         <ul className="box">
-          {products.map((product) => {
+          {products.map((product, index) => {
             return (
-              <li>
+              <li key={`${product.productID} + ${index}`}>
                 <Card
-                  key={product.productID}
                   name={product.productName}
                   price={product.salePrice}
                   leftItem={product.mojodi}

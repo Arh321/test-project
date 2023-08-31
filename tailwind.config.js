@@ -42,6 +42,7 @@ module.exports = {
         "main-blue": "#2c7df9",
         "main-favorite-red": "#f66047",
         "main-discount-new": "#5E5FB2",
+        "main-hover": "rgb(0,0,0,0.6)",
       },
       screens: {
         sm: "320px",

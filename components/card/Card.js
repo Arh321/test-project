@@ -1,13 +1,30 @@
 "use client";
 
 import toFarsiNumber from "@/hooks/toPersion";
-import { addToBaket, clculateTotal } from "@/redux/fetures/basket";
+import {
+  addToBaket,
+  clculateTotal,
+  increase,
+  remoeFromBasket,
+  remove,
+} from "@/redux/fetures/basket";
+import { triggerDeleteBasket } from "@/redux/fetures/deleteBasketModule";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Card = ({ id, name, price, discount, leftItem }) => {
+  const isPruductKey = useSelector(
+    (state) => state.deleteBasketModule.isPruductKey
+  );
+  const [isFirstClick, setIsFirstClick] = useState(isPruductKey || false);
   const dispatch = useDispatch();
   const { basket } = useSelector((state) => state.basket);
+  useEffect(() => {
+    if (isFirstClick) {
+      setIsFirstClick(!isFirstClick);
+    }
+  }, [isPruductKey]);
   const addItem = (id, name, price, discount) => {
     dispatch(
       addToBaket({
@@ -18,6 +35,21 @@ const Card = ({ id, name, price, discount, leftItem }) => {
         amount: 1,
       })
     );
+    dispatch(clculateTotal());
+    setIsFirstClick(!isFirstClick);
+  };
+  const checkProduct = basket.find((item) => item.id == id);
+  const onMines = (id, amount) => {
+    if (checkProduct.amount < 2) {
+      dispatch(remove(id));
+      setIsFirstClick(!isFirstClick);
+    } else {
+      dispatch(remoeFromBasket(id));
+    }
+    dispatch(clculateTotal());
+  };
+  const onAdd = (id) => {
+    dispatch(increase(id));
     dispatch(clculateTotal());
   };
 
@@ -52,12 +84,24 @@ const Card = ({ id, name, price, discount, leftItem }) => {
           </div>
         )}
         <div className="flex justify-end">
-          <button
-            onClick={() => addItem(id, name, price, discount)}
-            className="w-[96px] py-2 px-1 rounded-2xl border border-gray-300 shadow-info font-medium text-[0.6rem]"
-          >
-            افزودن به سبد خرید
-          </button>
+          {!isFirstClick ? (
+            <button
+              onClick={() => addItem(id, name, price, discount)}
+              className="w-[96px] py-2 px-1 rounded-2xl border border-gray-300 shadow-info font-medium text-[0.6rem]"
+            >
+              افزودن به سبد خرید
+            </button>
+          ) : (
+            <div className="flex items-center gap-4 border rounded-lg border-blue-500 px-1">
+              <button onClick={() => onAdd(id)} className="text-3xl">
+                +
+              </button>
+              <p>{checkProduct?.amount ? checkProduct.amount : ""}</p>
+              <button onClick={() => onMines(id)} className="text-3xl">
+                -
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

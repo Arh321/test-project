@@ -64,9 +64,9 @@ export default function SwiperSection() {
             />
           </button>
         </div>
-        {arr.map((item) => {
+        {arr.map((item, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index + item}>
               <img className="w-fit h-[360px]" src={item} />
             </SwiperSlide>
           );

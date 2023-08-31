@@ -1,10 +1,20 @@
+import { triggCategiry } from "@/redux/fetures/deleteBasketModule";
+import { useDispatch, useSelector } from "react-redux";
+import Categories from "../module/CategoriesModule";
 import Location from "./Location";
 
-const Menu = () => {
+const Menu = ({ productGroups }) => {
+  const isCategory = useSelector(
+    (state) => state.deleteBasketModule.isCategory
+  );
+  const dispatch = useDispatch();
   return (
-    <div className="py-2 flex items-center justify-between">
+    <div className="py-2 flex items-center justify-between relative">
       <div className="flex items-center gap-6">
-        <div className="flex items-center cursor-pointer">
+        <div
+          onClick={() => dispatch(triggCategiry())}
+          className="flex items-center cursor-pointer relative"
+        >
           <img src="/icons/Group 313.svg" />
           <p className="font-medium text-xs">دسته بندی‌ها</p>
         </div>
@@ -29,6 +39,7 @@ const Menu = () => {
           <p className="font-medium text-xs">جشنواره</p>
         </div>
       </div>
+      {isCategory && <Categories productGroups={productGroups} />}
       <Location />
     </div>
   );
