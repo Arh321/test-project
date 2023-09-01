@@ -16,13 +16,22 @@ const deletebasketModuleSlice = createSlice({
     triggPruductKey: (state) => {
       state.isPruductKey = !state.isPruductKey;
     },
-    triggCategiry: (state) => {
+    triggCategori: (state) => {
       state.isCategory = !state.isCategory;
+    },
+    closeingCategori: (state, payload) => {
+      if (payload.payload === false) {
+        state.isCategory = false;
+      }
     },
   },
 });
 
-export const { triggerDeleteBasket, triggPruductKey, triggCategiry } =
-  deletebasketModuleSlice.actions;
+export const {
+  triggerDeleteBasket,
+  triggPruductKey,
+  triggCategori,
+  closeingCategori,
+} = deletebasketModuleSlice.actions;
 
 export default deletebasketModuleSlice.reducer;

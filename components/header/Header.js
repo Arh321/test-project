@@ -29,7 +29,7 @@ const Header = () => {
         <Login />
         <Basket triggerModule={triggerModule} />
       </div>
-      {isBsketOpen && <CheckModule />}
+      {isBsketOpen && <CheckModule isBsketOpen={isBsketOpen} />}
     </div>
   );
 };

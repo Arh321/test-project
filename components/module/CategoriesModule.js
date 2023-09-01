@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const Categories = ({ productGroups }) => {
   return (
-    <div className="flex absolute top-12 right-0 bg-white z-20">
+    <div className="flex absolute top-12 right-0 bg-white z-20 bg-main-silver">
       <div className="grid grid-rows-4 grid-flow-col">
         {productGroups &&
           productGroups.data.result
@@ -21,11 +21,13 @@ const Categories = ({ productGroups }) => {
                       className="w-4 aspect-square"
                       src="https://measomarket.com/uploads/products_images/164873-185x226.jpg"
                     />
-                    <p className="font-light text-[0.9rem]">
+                    <p className="font-light text-[0.9rem] text-white">
                       {group.groupName}
                     </p>
                   </div>
-                  <p>{">"}</p>
+                  <p className="font-medium text-[1.2rem] text-white pl-1">
+                    {">"}
+                  </p>
                 </div>
               );
             })}

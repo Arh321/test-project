@@ -8,12 +8,20 @@ const basketModuleSlice = createSlice({
   name: "basketModule",
   initialState,
   reducers: {
-    triggerBasket: (state) => {
+    triggerBasket: (state, payload) => {
+      if (payload.payload === false) {
+        state.isBsketOpen = false;
+      }
       state.isBsketOpen = !state.isBsketOpen;
+    },
+    closingBasket: (state, payload) => {
+      if (payload.payload === false) {
+        state.isBsketOpen = false;
+      }
     },
   },
 });
 
-export const { triggerBasket } = basketModuleSlice.actions;
+export const { triggerBasket, closingBasket } = basketModuleSlice.actions;
 
 export default basketModuleSlice.reducer;

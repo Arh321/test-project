@@ -7,18 +7,38 @@ import {
   remoeFromBasket,
   remove,
 } from "@/redux/fetures/basket";
+import { closingBasket, triggerBasket } from "@/redux/fetures/basketModule";
 import { triggerDeleteBasket } from "@/redux/fetures/deleteBasketModule";
-import { useEffect } from "react";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const CheckModule = () => {
+const CheckModule = ({ isBsketOpen }) => {
   const { basket, total, amount, totoalWhithoutDiscount } = useSelector(
     (state) => state.basket
   );
+
+  const dispatch = useDispatch();
+  const ref = useRef(null);
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (isBsketOpen && ref.current && !ref.current.contains(e.target)) {
+        dispatch(closingBasket(false));
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [isBsketOpen]);
   useEffect(() => {
     dispatch(clculateTotal());
   }, [basket]);
-  const dispatch = useDispatch();
   const onMines = (id, amount) => {
     if (amount < 2) {
       dispatch(remove(id));
@@ -30,7 +50,10 @@ const CheckModule = () => {
     dispatch(triggerDeleteBasket());
   };
   return (
-    <div className="w-[400px] pb-2 px-2 flex flex-col gap-2 absolute top-[80%] left-5 bg-white rounded-xl shadow-info z-10">
+    <div
+      ref={ref}
+      className="w-[400px] pb-2 px-2 flex flex-col gap-2 absolute top-[80%] left-5 bg-white rounded-xl shadow-info z-10"
+    >
       <div className="w-full flex justify-end my-1 ">
         <button
           onClick={() => onCleareAll()}
@@ -99,9 +122,11 @@ const CheckModule = () => {
           </p>
         </div>
         <div className="flex items-center gap-2 px-2">
-          <button className="bg-main-blue rounded-lg p-2 text-white font-medium">
-            پرداخت
-          </button>
+          <Link href={"/payment"}>
+            <button className="bg-main-blue rounded-lg p-2 text-white font-medium">
+              پرداخت
+            </button>
+          </Link>
         </div>
       </div>
     </div>

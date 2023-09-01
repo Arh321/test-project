@@ -1,10 +1,13 @@
 "use client";
 
 import toFarsiNumber from "@/hooks/toPersion";
-import { useSelector } from "react-redux";
+import { closingBasket } from "@/redux/fetures/basketModule";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const Basket = ({ triggerModule }) => {
+const Basket = ({ triggerModule, isBsketOpen }) => {
   const { basket, amount } = useSelector((state) => state.basket);
+
   return (
     <div
       onClick={() => triggerModule()}
