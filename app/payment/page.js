@@ -11,8 +11,8 @@ import { triggerDeleteBasket } from "@/redux/fetures/deleteBasketModule";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Captcha from "captcha-image";
-import DeleteBasketModule from "@/components/noduls/DeleteBasketModule";
-import CancelConfirm from "@/components/noduls/CancelConfirm";
+import DeleteBasketModule from "@/components/module/DeleteBasketModule";
+import CancelConfirm from "@/components/module/CancelConfirm";
 
 const captchaImage = new Captcha(
   "40px Arial",
@@ -101,7 +101,7 @@ const Payment = () => {
             <p className="w-full font-bold text-right text-xl">درگاه پرداخت</p>
             <form className="w-full flex flex-col gap-2">
               <div className="w-full">
-                <label>شماره کارت</label>
+                <label className="font-bold text-sm">شماره کارت</label>
                 <div className="w-full flex justify-between items-center">
                   {[1, 2, 3, 4].map((item) => {
                     return (
@@ -146,7 +146,7 @@ const Payment = () => {
                   onClick={(e) => onCancel(e)}
                   className="bg-red-600 px-8 py-2 font-bold rounded-lg"
                 >
-                  کنسل
+                  انصراف
                 </button>
               </div>
             </form>

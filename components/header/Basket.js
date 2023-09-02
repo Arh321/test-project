@@ -11,7 +11,7 @@ const Basket = ({ triggerModule, isBsketOpen }) => {
   return (
     <div
       onClick={() => triggerModule()}
-      className="flex items-center gap-3 border-2 border-gray-300 px-2 py-[6px] rounded-[13px] relative"
+      className="flex items-center gap-3 border-2 border-gray-300 px-2 py-[6px] rounded-[13px] relative cursor-pointer"
     >
       <img className="absolute right-1 top-2" src="/icons/basket.svg" />
       <p className="font-medium text-[0.7rem] flex gap-2 items-center pr-7">

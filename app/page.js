@@ -3,10 +3,10 @@ import BoxInfo from "@/components/box info/BoxInfo";
 import ScrollBox from "@/components/discount of day section/ScrollBox";
 import Header from "@/components/header/Header";
 import Menu from "@/components/menu/Menu";
-import DeleteBasketModule from "@/components/noduls/DeleteBasketModule";
+import DeleteBasketModule from "@/components/module/DeleteBasketModule";
 import ProductCard from "@/components/product card/ProductCard";
 import SwiperSection from "@/components/swiper/SwiperSction";
-import request from "@/fetch data/requestToApi";
+import request from "@/hooks/fetch data/requestToApi";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,7 +72,7 @@ export default function Home() {
   return (
     <>
       <div className={clsx("px-2 w-full")} dir="rtl">
-        <Header />
+        <Header productGroups={productGroups} />
         <Menu productGroups={productGroups} />
         <SwiperSection />
         <div className="w-full flex items-center justify-center gap-3 py-10">
@@ -131,9 +131,10 @@ export default function Home() {
               </p>
             </button>
           </div>
-          <ul className="brand_box">
-            {brands &&
-              brands.data.result.map((brand, index) => {
+
+          {brands && (
+            <ul className="brand_box">
+              {brands.data.result.map((brand, index) => {
                 return (
                   <li
                     key={index}
@@ -145,7 +146,8 @@ export default function Home() {
                   </li>
                 );
               })}
-          </ul>
+            </ul>
+          )}
         </div>
       </div>
       {isDeleteBsketOpen && <DeleteBasketModule />}

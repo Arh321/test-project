@@ -7,11 +7,13 @@ import basketModule from "./fetures/basketModule";
 import deleteBasketModule from "./fetures/deleteBasketModule";
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
+import historySearch from "./fetures/historySearch";
 
 const rootReducer = combineReducers({
   basket,
   basketModule,
   deleteBasketModule,
+  historySearch,
 });
 
 const persistConfig = {

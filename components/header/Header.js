@@ -9,7 +9,7 @@ import Login from "./Lgin";
 import Search from "./Search";
 import { triggerBasket } from "@/redux/fetures/basketModule";
 
-const Header = () => {
+const Header = ({ productGroups }) => {
   const isBsketOpen = useSelector((state) => state.basketModule.isBsketOpen);
   const dispatch = useDispatch();
   const triggerModule = () => {
@@ -23,7 +23,7 @@ const Header = () => {
           <span className="font-bold text-2xl">پانیذ</span>
           <span className="font-medium text-[0.5rem]">هایپر مارکت آنلاین</span>
         </p>
-        <Search />
+        <Search productGroups={productGroups} />
       </div>
       <div className="flex items-center gap-2">
         <Login />

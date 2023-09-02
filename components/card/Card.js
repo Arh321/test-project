@@ -39,6 +39,11 @@ const Card = ({ id, name, price, discount, leftItem }) => {
     setIsFirstClick(!isFirstClick);
   };
   const checkProduct = basket.find((item) => item.id == id);
+  useEffect(() => {
+    if (!checkProduct) {
+      setIsFirstClick(!isFirstClick);
+    }
+  }, [checkProduct]);
   const onMines = (id, amount) => {
     if (checkProduct.amount < 2) {
       dispatch(remove(id));
